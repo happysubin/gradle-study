@@ -1,0 +1,41 @@
+plugins {
+	id 'java' //자바 플러그인을 적용
+	id 'org.springframework.boot' version '2.7.6' //스프링 부트 플러그인을 적용
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE' //스프링 의존성 관리 1.0.15 버전 플러그인을 적용
+}
+
+group = 'study'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {  //의존 관게 해결하기 위한 저장소로 메이븐 중앙 저장소 사용
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web' //프로덕션 코드를 컴파일하고 실행할 때 필요
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' //테스트 코드를 컴파일하고 실행할 때 필요
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+tasks.register('hello') {
+	doLast {
+		String someString = 'mY_nAmE'
+		println "Original: $someString"
+		println "Upper case: ${someString.toUpperCase()}"
+	}
+}
+
+tasks.register('intro') {
+	dependsOn tasks.hello
+	doLast {
+		println "I'm Gradle"
+	}
+}
+//gradle -q intro
+
+//gradle -q hello
+//https://docs.gradle.org/current/userguide/tutorial_using_tasks.html
