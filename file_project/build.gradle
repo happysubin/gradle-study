@@ -18,3 +18,12 @@
 //    useJUnitPlatform()
 //}
 
+copy {
+    from 'original'
+    into 'replication'
+
+    include 'example.foo', 'example?.bar', '**/*.txt', 'internal/'
+    includeEmptyDirs = false //빈 디렉터리 제외
+
+    exclude '**/dummy.txt'
+}
